@@ -22,6 +22,9 @@ bootloader.bin : %.bin : %.o
 bootloader.o : %.o : %.S
 	as --32 $< -o $@
 
+# Note: (ctrl + a) + x to exit from qemu in nographic mode
+test: 
+	qemu-system-i386 -nographic -drive format=raw,file=bootloader.bin -net none 
 
 .PHONY: clean
 
