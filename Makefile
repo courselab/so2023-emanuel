@@ -28,11 +28,12 @@
 ## Relevent files for this exercise.
 ##
 
-all: # hw-hex hw-s hw-c
+all: hw-hex hw-s hw-c
 	@echo "Edit this rule"
 
 hw-hex.bin : hw.hex
-	@echo "Edit this rule"
+	$(MAKE) hex2bin
+	./hex2bin $< $@
 
 hw-s.bin : hw.S
 	as --32 $< -o hw-s.o
