@@ -28,8 +28,8 @@
 ## Relevent files for this exercise.
 ##
 
-all: hw-hex hw-s hw-c
-	@echo "Edit this rule"
+all: hw-hex.bin hw-s.bin hw-c.bin
+	@echo "Building all targets.."
 
 hw-hex.bin : hw.hex
 	$(MAKE) hex2bin
@@ -39,15 +39,34 @@ hw-s.bin : hw.S
 	as --32 $< -o hw-s.o
 	ld -melf_i386 --oformat=binary -Ttext=0x7c00  hw-s.o -o $@
 
-hw-c.bin : hw.c
-	@echo "Edit this line"
-
 hex2bin : hex2bin.c
 	gcc $< -o $@
 
-test: 
-	qemu-system-i386 -drive format=raw,file=hw-s.bin -net none 
+# hw-c.bin chain below
 
+hw.s : %.s : hw.c stdio.h 
+	gcc -m16 -O0 -I. -Wall -fno-pic -fcf-protection=none  --freestanding -S $< -o $@
+
+hw-utils.s  : %.s : %.c 
+	gcc -m16 -O0 -I. -Wall -fno-pic  -fcf-protection=none --freestanding -S $< -o $@
+
+hw-rt0.s  : %.s : %.c 
+	gcc -m16 -O0 -I. -Wall -fno-pic  -fcf-protection=none -S $< -o $@
+
+hw.o hw-utils.o  hw-rt0.o : %.o : %.s
+	as --32 $*.s -o $@
+
+hw-c.bin: %.bin :  hw.o hw-utils.o hw.ld | hw-rt0.o
+	gcc -m16 -nostdlib -ffreestanding -T hw.ld hw.o -o hw-c.bin
+
+test-hex: hw-hex.bin
+	qemu-system-i386 -drive format=raw,file=$< -net none 
+
+test-s: hw-s.bin
+	qemu-system-i386 -drive format=raw,file=$< -net none 
+
+test-c: hw-c.bin
+	qemu-system-i386 -drive format=raw,file=$< -net none 
 
 .PHONY: cleanma
 

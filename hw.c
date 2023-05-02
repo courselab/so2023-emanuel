@@ -23,5 +23,12 @@
 */
 
 
+#include "stdio.h" 
 
+int main (void){
 
+  printf ("Booting..");
+  printf ("\n\rHello World");
+
+  return 0;
+}
