@@ -1,14 +1,14 @@
 /* <file> - <One-line note about this file>
  
-   Copyright (c) <YEAR>, <AUTHOR> 
+   Copyright (c) 2023, Emanuel Valente 
 
    This piece of software is a derivative work of SYSeg, by Monaco F. J.
    SYSeg is distributed under the license GNU GPL v3, and is available
    at the official repository https://www.gitlab.com/monaco/syseg.
 
-   This file is part of <PROJECT>.
+   This file is part of  Bare-Metal Hello World.
 
-   <PROJECT> is free software: you can redistribute it and/or modify
+   Bare-Metal Hello World is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
    the Free Software Foundation, either version 3 of the License, or
    (at your option) any later version.

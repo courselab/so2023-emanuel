@@ -46,11 +46,38 @@
 
     Repeat the tests mentioned in part (a)
 
+ANSWER
+
+Available targets:
+
+1. Building targets:
+
+- hw-hex.bin: builds hex version of the bootloader
+- hw-s.bin: builds the assembly version of the bootloader
+- hw-c.bin: builds the C language version of the bootloader
+
+2. Testing targets: All targets below use qemu-system-i386. Make sure it's installed in your operating system.
+
+- test-hex: tests hex version of the bootloader
+- test-s: tests the assembly version of the bootloader
+- test-c: tests the C language version of the bootloader
+
+
+DOCKER
+
+Building docker image:
+
+docker build -t so .        
+
+Runing docker container:
+docker run -it --rm   -v $PWD:/data so:latest
+
+At this point you can use all make targets listed above
+
+
  ===============================================================================
 
  APPENDIX
- 
-
 
  Directions for the exercise
  ------------------------------
@@ -116,7 +143,7 @@
 
 ```
 
-     Copyright (c) <CURRENT-YEAR>, <YOUR-NAME> 
+     Copyright (c) 2023, Emanuel Valente 
 
      This piece of software is a derivative work of SYSeg,
      by Monaco F. J.. SYSeg is distributed under the license
@@ -369,5 +396,5 @@
     Note: in some systems, storage device may also appear as /dev/mmcblk;
     e.g. /dev/mmcblk0p1 is the first partition of the device mmcklk0.
 
-  --- End of MakeBintools
+
 
