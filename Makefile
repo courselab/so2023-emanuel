@@ -20,10 +20,6 @@
 #   
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-
-
-
 ##
 ## Relevent files for this exercise.
 ##
@@ -44,7 +40,7 @@ hex2bin : hex2bin.c
 
 # hw-c.bin chain below
 
-hw.s : %.s : hw.c stdio.h 
+hw-c.s : %.s : hw.c stdio.h 
 	gcc -m16 -O0 -I. -Wall -fno-pic -fcf-protection=none  --freestanding -S $< -o $@
 
 hw-utils.s  : %.s : %.c 
@@ -53,11 +49,11 @@ hw-utils.s  : %.s : %.c
 hw-rt0.s  : %.s : %.c 
 	gcc -m16 -O0 -I. -Wall -fno-pic  -fcf-protection=none -S $< -o $@
 
-hw.o hw-utils.o  hw-rt0.o : %.o : %.s
+hw-c.o hw-utils.o  hw-rt0.o : %.o : %.s
 	as --32 $*.s -o $@
 
-hw-c.bin: %.bin :  hw.o hw-utils.o hw.ld | hw-rt0.o
-	gcc -m16 -nostdlib -ffreestanding -T hw.ld hw.o -o hw-c.bin
+hw-c.bin: %.bin :  hw-c.o hw-utils.o hw.ld | hw-rt0.o
+	gcc -m16 -O0 -I. -nostdlib -ffreestanding -T hw2.ld hw-c.o hw-utils.o -o hw-c.bin
 
 test-hex: hw-hex.bin
 	qemu-system-i386 -drive format=raw,file=$< -net none 

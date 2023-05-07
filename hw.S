@@ -1,4 +1,4 @@
-#   <file> - <One-line note about this file>
+#   hw.S - Bare Metal - Hello World - written in AT&T assembly.
 # 
 #   Copyright (c) 2023, Emanuel Valente 
 #
