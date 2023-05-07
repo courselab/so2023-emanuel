@@ -53,7 +53,7 @@ hw-c.o hw-utils.o  hw-rt0.o : %.o : %.s
 	as --32 $*.s -o $@
 
 hw-c.bin: %.bin :  hw-c.o hw-utils.o hw.ld | hw-rt0.o
-	gcc -m16 -O0 -I. -nostdlib -ffreestanding -T hw2.ld hw-c.o hw-utils.o -o hw-c.bin
+	gcc -m16 -O0 -I. -nostdlib -ffreestanding -T hw.ld hw-c.o hw-utils.o -o hw-c.bin
 
 test-hex: hw-hex.bin
 	qemu-system-i386 -drive format=raw,file=$< -net none 
